@@ -26,7 +26,6 @@ class TodoForm extends React.Component {
       todo: ""
     })
     this.props.addTodo(this.state.todo);
-    console.log("submit")
   };
 
   render() {
@@ -40,9 +39,7 @@ class TodoForm extends React.Component {
             placeholder="Next step in saving the world here"
             onChange={this.handleChange}
           />
-          <button
-            type="submit"
-          >Add Todo</button>
+          <button type="submit">Add Todo</button>
         </form>
         <button
           onClick={this.props.removeCompleted}

@@ -34,7 +34,7 @@ class App extends React.Component {
     super();
     this.state = {
       todoItems,
-      //Q: why is this kept here? it isn't a slice of state we're tracking, is it?
+      //Q: why is this kept here? it isn't a slice of state we're tracking, is it? Does this enable the rerendering when it changes???
       toggleCompleted: () => {},
       removeCompleted: () => {},
     };
@@ -72,18 +72,7 @@ class App extends React.Component {
       this.state.todoItems.filter(todo =>
         (todo.completed === false)
       )
-      // this.state.todoItems.map((todo) => {
-      //   // console.log(todo.completed)
-      //   if (todo.completed === true) {
-      //     // console.log("true")
-      //     return null
-      //   } else {
-      //     // console.log("false")
-      //     return todo
-      //   }
-      // })
     )
-    console.log(newTodoItems)
     this.setState({todoItems: newTodoItems})
   }
 

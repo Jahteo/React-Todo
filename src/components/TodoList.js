@@ -6,7 +6,6 @@ import Todo from "./Todo"
 //Q: better to use props here bc we'll be pulling unknown (to me) superpowers (properties) from the class component React.Component?
 const TodoList = (props) => {
 
-
   return (
     <div>
       Hola from the TodoList
