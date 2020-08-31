@@ -22,12 +22,16 @@ class TodoForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({
+      todo: ""
+    })
     this.props.addTodo(this.state.todo);
     console.log("submit")
   };
 
   render() {
     return (
+      <>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -39,10 +43,11 @@ class TodoForm extends React.Component {
           <button
             type="submit"
           >Add Todo</button>
-          <button
-            // onClick={clearCompleted}
-          >Clear Completed</button>
         </form>
+        <button
+          onClick={this.props.removeCompleted}
+        >Clear Completed</button>
+      </>
     );
   }
 };

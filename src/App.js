@@ -34,8 +34,9 @@ class App extends React.Component {
     super();
     this.state = {
       todoItems,
+      //Q: why is this kept here? it isn't a slice of state we're tracking, is it?
       toggleCompleted: () => {},
-      // removeCompleted: () => {},
+      removeCompleted: () => {},
     };
   }
 
@@ -66,6 +67,25 @@ class App extends React.Component {
     });
   };
 
+  removeCompleted = () => {
+    const newTodoItems = (
+      this.state.todoItems.filter(todo =>
+        (todo.completed === false)
+      )
+      // this.state.todoItems.map((todo) => {
+      //   // console.log(todo.completed)
+      //   if (todo.completed === true) {
+      //     // console.log("true")
+      //     return null
+      //   } else {
+      //     // console.log("false")
+      //     return todo
+      //   }
+      // })
+    )
+    console.log(newTodoItems)
+    this.setState({todoItems: newTodoItems})
+  }
 
   render() {
     return (
@@ -76,7 +96,10 @@ class App extends React.Component {
           todoItems={this.state.todoItems}
           toggleCompleted={this.toggleCompleted}
         />
-        <TodoForm addTodo={this.addTodo}/>
+        <TodoForm
+          addTodo={this.addTodo}
+          removeCompleted={this.removeCompleted}
+        />
       </div>
     );
   }
