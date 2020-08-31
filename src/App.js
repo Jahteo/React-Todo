@@ -1,5 +1,7 @@
 import React from 'react';
 import TodoList from "./components/TodoList"
+import TodoForm from "./components/TodoForm"
+
 import "./components/Todo.css"
   // - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
   // - All of your application data will be stored here on `<App />`.
@@ -9,7 +11,7 @@ const todoItems = [
   {
     task: "Click here to un/cross out",
     id:26897345,
-    completed: true,
+    completed: false,
   },
   {
     task: "Add a new item below",
@@ -19,7 +21,7 @@ const todoItems = [
   {
     task: "Remove all completed (crossed out) items",
     id: 98732454,
-    completed: false
+    completed: true
   }
 ];
 
@@ -53,7 +55,16 @@ class App extends React.Component {
   };
 
 
-  //addItem= () => {};
+  addTodo = (todoName) => {
+    const newTodo = {
+      task: todoName,
+      id: new Date(),
+      completed: false
+    };
+    this.setState({
+      todoItems: [...this.state.todoItems, newTodo]
+    });
+  };
 
 
   render() {
@@ -65,6 +76,7 @@ class App extends React.Component {
           todoItems={this.state.todoItems}
           toggleCompleted={this.toggleCompleted}
         />
+        <TodoForm addTodo={this.addTodo}/>
       </div>
     );
   }
