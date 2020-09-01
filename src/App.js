@@ -1,8 +1,9 @@
 import React from 'react';
-import TodoList from "./components/TodoList"
-import TodoForm from "./components/TodoForm"
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
+import { Jumbotron, Container } from "reactstrap";
+import SearchField, {onChange} from "react-search-field"
 
-import "./components/Todo.css"
   // - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
   // - All of your application data will be stored here on `<App />`.
   // - All of your `handler` functions should live here on `<App />`.
@@ -37,7 +38,16 @@ class App extends React.Component {
       //Q: why is this kept here? it isn't a slice of state we're tracking, is it? Does this enable the rerendering when it changes???
       toggleCompleted: () => {},
       removeCompleted: () => {},
+      searchTerm: "",
     };
+  }
+
+  // Search attempt
+  editSearchTerm = (e) => {
+    this.setState({searchTerm:e.target.value})
+  }
+  dynamicSearch = () => {
+    return this.state.todoItems.filter(todo => todo.task.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
   }
 
   toggleCompleted = (clickedItemId) => {
@@ -79,16 +89,29 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Not Quite Todoist</h1>
-        <h2>Welcome to your new fav Todo App!</h2>
+        <Jumbotron fluid>
+          <Container fluid>
+          <h1>Not Quite Todoist</h1>
+          <p>Welcome to your new fav Todo App!</p>
+          </Container>
+        </Jumbotron>
+
         <TodoList
           todoItems={this.state.todoItems}
           toggleCompleted={this.toggleCompleted}
+          editSearchTerm={this.editSearchTerm}
+          dynamicSearch={this.dynamicSearch}
+          searchTerm={this.searchTerm}
         />
         <TodoForm
           addTodo={this.addTodo}
           removeCompleted={this.removeCompleted}
         />
+        {/* <SearchField
+          placeholder="Search Todo"
+          onChange={onChange}
+        /> */}
+        <p>test</p>
       </div>
     );
   }
