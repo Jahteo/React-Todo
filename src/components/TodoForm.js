@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, Button, Form, FormGroup, Input, CardTitle } from "reactstrap";
+import { Card, CardBody, Button, Form, FormGroup, Input, CardTitle, CardDeck } from "reactstrap";
 // - `<TodoForm>` will hold your input field and your `Add Todo` and `Clear Completed` buttons.
 // - Your input field should take in user input, and allow a user to press `Enter` or click on the `Submit Button` to add a todo to your list.
 // - Once a todo is submitted, the Todo List should re-render and show the added todo.
@@ -31,7 +31,7 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <CardDeck>
       {/* Q: How did I break the Card width already??? tried adding  */}
       <Card sm="6">
         {/* <CardTitle>CardTitle</CardTitle> */}
@@ -54,7 +54,7 @@ class TodoForm extends React.Component {
         </CardBody>
       </Card>
       <Card>Why are these Cards full-screen width????</Card>
-      </div>
+      </CardDeck>
 
     );
   }
