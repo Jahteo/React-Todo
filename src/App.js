@@ -2,12 +2,13 @@ import React from 'react';
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 import { Jumbotron, Container } from "reactstrap";
+import SearchField from "react-search-field"
 
-  // - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
-  // - All of your application data will be stored here on `<App />`.
-  // - All of your `handler` functions should live here on `<App />`.
+// - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
+// - All of your application data will be stored here on `<App />`.
+// - All of your `handler` functions should live here on `<App />`.
 
-const todoItems = [
+const todoItems = [//note this is only here bc I don't have a server that I'm pulling it from. It's global data, & I'm still learning.
   {
     task: "Click here to un/cross out",
     id:26897345,
@@ -35,7 +36,7 @@ class App extends React.Component {
     this.state = {
       todoItems,
       //Q: why is this kept here? it isn't a slice of state we're tracking, is it? Does this enable the rerendering when it changes???
-      //Yetti says These are definitely weird & I didn't need them.
+      //Yetti says These are definitely weird here & I didn't need them.
       // toggleCompleted: () => {},
       // removeCompleted: () => {},
       searchTerm: "",
@@ -103,18 +104,17 @@ class App extends React.Component {
           </Container>
         </Jumbotron>
 
-        {/* <SearchField
-          placeholder="Search Todo"
-          onChange={onChange}
-        /> */}
+        <SearchField
+          type="text"
+          value={searchTerm}
+          onChange={this.editSearchTerm}
+          placeholder="search here"
+        />
+        {/* <input type="text" value={searchTerm} onChange={(e) => this.editSearchTerm(e.target.value)} placeholder="search here" /> */}
         <TodoList
           // todoItems={this.state.todoItems}//now destructured. SOOOO much easier to read & comprehend.
           todoItems={this.dynamicSearch()}
           toggleCompleted={this.toggleCompleted}
-          editSearchTerm={this.editSearchTerm}
-          dynamicSearch={this.dynamicSearch}
-          // searchTerm={this.state.searchTerm}
-          searchTerm={searchTerm}
         />
         <TodoForm
           addTodo={this.addTodo}
