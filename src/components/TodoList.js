@@ -11,6 +11,8 @@ const TodoList = (props) => {
     <div>
       {/* <SearchField /> */}
       {/* BROKEN: TypeError: Cannot read property 'state' of undefined */}
+      {/* trying to use these instructions: https://levelup.gitconnected.com/building-a-simple-dynamic-search-bar-in-react-js-f1659d64dfae */}
+      {/* conviced this is a bad project to learn a search bar on when state is already in a new technique & passing props is being weird in my brain. */}
       <input type="text" value={props.this.state.searchTerm} onChange={this.editSearchTerm} placeholder="search here" />
       {props.todoItems.map((item) => (
         <Todo
