@@ -1,13 +1,14 @@
 import React from 'react';
-import TodoList from "./components/TodoList"
-import TodoForm from "./components/TodoForm"
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
+import { Jumbotron, Container } from "reactstrap";
+import SearchField from "react-search-field"
 
-import "./components/Todo.css"
-  // - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
-  // - All of your application data will be stored here on `<App />`.
-  // - All of your `handler` functions should live here on `<App />`.
+// - `<App />` will hold all the data needed for this project. It will also be the container for your Todo Components.
+// - All of your application data will be stored here on `<App />`.
+// - All of your `handler` functions should live here on `<App />`.
 
-const todoItems = [
+const todoItems = [//note this is only here bc I don't have a server that I'm pulling it from. It's global data, & I'm still learning.
   {
     task: "Click here to un/cross out",
     id:26897345,
@@ -35,14 +36,26 @@ class App extends React.Component {
     this.state = {
       todoItems,
       //Q: why is this kept here? it isn't a slice of state we're tracking, is it? Does this enable the rerendering when it changes???
-      toggleCompleted: () => {},
-      removeCompleted: () => {},
+      //Yetti says These are definitely weird here & I didn't need them.
+      // toggleCompleted: () => {},
+      // removeCompleted: () => {},
+      searchTerm: "",
     };
   }
 
+  // Search attempt
+  editSearchTerm = (value) => {
+    this.setState({searchTerm: value})
+  }
+  dynamicSearch = () => {
+    const { todoItems, searchTerm } = this.state;
+    return todoItems.filter(todo => todo.task.toLowerCase().includes(searchTerm.toLowerCase()))
+  }
+
   toggleCompleted = (clickedItemId) => {
+    const { todoItems } = this.state;
     this.setState({
-      todoItems: this.state.todoItems.map((item) => {
+      todoItems: todoItems.map((item) => {
         if(item.id === clickedItemId) {
           return {
             ...item,
@@ -57,19 +70,21 @@ class App extends React.Component {
 
 
   addTodo = (todoName) => {
+    const { todoItems } = this.state;
     const newTodo = {
       task: todoName,
       id: new Date(),
       completed: false
     };
     this.setState({
-      todoItems: [...this.state.todoItems, newTodo]
+      todoItems: [...todoItems, newTodo]
     });
   };
 
   removeCompleted = () => {
+    const { todoItems } = this.state;
     const newTodoItems = (
-      this.state.todoItems.filter(todo =>
+      todoItems.filter(todo =>
         (todo.completed === false)
       )
     )
@@ -77,18 +92,36 @@ class App extends React.Component {
   }
 
   render() {
+    // bonus destructuring state EVERYWHERE:
+    const { searchTerm } = this.state;
+
     return (
       <div className="App">
-        <h1>Not Quite Todoist</h1>
-        <h2>Welcome to your new fav Todo App!</h2>
+        <Jumbotron fluid>
+          <Container fluid>
+          <h1>Not Quite Todoist</h1>
+          <p>Welcome to your new fav Todo App!</p>
+          </Container>
+        </Jumbotron>
+
+        <SearchField
+          type="text"
+          value={searchTerm}
+          onChange={this.editSearchTerm}
+          placeholder="search here"
+        />
+        {/* <input type="text" value={searchTerm} onChange={(e) => this.editSearchTerm(e.target.value)} placeholder="search here" /> */}
         <TodoList
-          todoItems={this.state.todoItems}
+          // todoItems={this.state.todoItems}//now destructured. SOOOO much easier to read & comprehend.
+          todoItems={this.dynamicSearch()}
           toggleCompleted={this.toggleCompleted}
         />
         <TodoForm
           addTodo={this.addTodo}
           removeCompleted={this.removeCompleted}
         />
+
+        <p>test</p>
       </div>
     );
   }

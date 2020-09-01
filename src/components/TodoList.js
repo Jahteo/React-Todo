@@ -4,16 +4,15 @@ import Todo from "./Todo"
 
 
 //Q: better to use props here bc we'll be pulling unknown (to me) superpowers (properties) from the class component React.Component?
-const TodoList = (props) => {
+const TodoList = ({ todoItems, toggleCompleted}) => {
 
   return (
     <div>
-      Hola from the TodoList
-      {props.todoItems.map((item) => (
+      {todoItems.map((item) => (
         <Todo
           key={item.id}
           todo={item}
-          toggleCompleted={props.toggleCompleted}
+          toggleCompleted={toggleCompleted}
         />
       ))}
     </div>
